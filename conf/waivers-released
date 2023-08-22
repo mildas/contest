@@ -201,4 +201,6 @@
 /scanning/oscap-eval/ERROR
     rhel <= 8 and note == 'E: oscap: Failed to convert OVAL state to SEXP, id: oval:ssg-state_file_groupowner_var_log_syslog_gid_4_0:ste:1.'
 
+/hardening/host-os/oscap/[^/]+/postfix_network_listening_disabled
+    rhel == 7 and arch == 'ppc64le'
 # vim: syntax=python
