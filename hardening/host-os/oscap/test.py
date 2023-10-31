@@ -56,8 +56,10 @@ else:
 
     # scan the remediated system
     cmd = [
-        'oscap', 'xccdf', 'eval', *verbose, '--profile', profile,
+        'oscap', 'xccdf', 'eval', *verbose, '--profile', '(all)',
+        '--rule', 'xccdf_org.ssgproject.content_rule_audit_rules_privileged_commands',
         '--progress', '--report', 'report.html', *oval_results,
+        '--results-arf', 'arf.xml',
         new_ds,
     ]
     proc, lines = util.subprocess_stream(cmd, **redir)

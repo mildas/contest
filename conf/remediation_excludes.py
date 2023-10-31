@@ -31,4 +31,9 @@ ansible_skip_tags = [
 host_os = [
     # required by TMT
     'package_rsync_removed',
+    'ensure_gpgcheck_globally_activated',
+    'ensure_gpgcheck_local_packages',
+    'ensure_gpgcheck_never_disabled',
+    'ensure_gpgcheck_repo_metadata',
+    'ensure_redhat_gpgkey_installed'
 ]

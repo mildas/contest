@@ -158,7 +158,11 @@ def report_beaker(status, name=None, note=None, logs=None):
         for log in logs:
             logpath = r.headers['Location'] + '/logs/' + Path(log).name
             with open(log, 'rb') as f:
-                put = requests.put(logpath, data=f)
+                if 'arf' in logpath:
+                    headers={'Content-Length': str(os.path.getsize(log)), 'Content-Transfer-Encoding': 'application/gzip'}
+                else:
+                    headers={'Content-Length': str(os.path.getsize(log))}
+                put = requests.put(logpath, data=f, headers=headers)
                 if put.status_code != 204:
                     util.log(f"uploading log {logpath} failed with {put.status_code}")
 
