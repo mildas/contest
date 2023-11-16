@@ -785,7 +785,7 @@ def wait_for_ifaddr(name, timeout=600, sleep=0.5):
     raise TimeoutError(f"wait for {name} IP addr timed out (not requested DHCP?)")
 
 
-def wait_for_ssh(ip, port=22, timeout=600, sleep=0.5, to_shutdown=False):
+def wait_for_ssh(ip, port=22, timeout=6000, sleep=0.5, to_shutdown=False):
     """
     Attempt to repeatedly connect to a given ip address and port (both strings)
     and return when a connection has been established with a genuine sshd
@@ -803,6 +803,7 @@ def wait_for_ssh(ip, port=22, timeout=600, sleep=0.5, to_shutdown=False):
         try:
             with socket.create_connection((ip, port), timeout=sleep) as s:
                 data = s.recv(10)
+                print(data)
                 if data.startswith(b'SSH-') and not to_shutdown:
                     return
                 # something else on the port? .. just wait + close
@@ -820,7 +821,7 @@ def wait_for_ssh(ip, port=22, timeout=600, sleep=0.5, to_shutdown=False):
 
 def virsh(*virsh_args, **run_args):
     # --quiet just skips the buggy trailing newline
-    cmd = ['virsh', '--quiet', *virsh_args]
+    cmd = ['virsh', *virsh_args]
     return subprocess.run(cmd, **run_args)
 
 
