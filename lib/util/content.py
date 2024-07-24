@@ -131,7 +131,7 @@ def get_content(build=True):
     else:
         # fall back to SRPM
         with dnf.download_rpm('scap-security-guide', source=True) as src_rpm:
-            with tempfile.TemporaryDirectory() as tmpdir:
+            with tempfile.TemporaryDirectory(dir='/var/tmp') as tmpdir:
                 # install dependencies
                 cmd = ['dnf', '-y', 'builddep', '--srpm', src_rpm]
                 util.subprocess_run(cmd, check=True, cwd=tmpdir)
